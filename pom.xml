@@ -59,7 +59,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
+         
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -108,5 +108,14 @@
             </plugin>
         </plugins>
     </build>
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.sonarsource.scanner.maven</groupId>
+      <artifactId>sonar-maven-plugin</artifactId>
+      <version>4.0.0.4121</version>
+    </plugin>
+  </plugins>
+</build>
 
 </project>
