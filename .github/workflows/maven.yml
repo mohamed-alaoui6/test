@@ -28,7 +28,7 @@ jobs:
       run: |
         mvn sonar:sonar \
           -Dsonar.projectKey=test \
-          -Dsonar.organization=empruntretour \
+          -Dsonar.organization=mohamed-alaoui6 \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=25ea79dbbfe9d0a352b8a3f59eaf4e81a7d7c195
           
