@@ -31,11 +31,11 @@ jobs:
     - name: SonarCloud Scan
       run: |
         mvn sonar:sonar \
-          -Dsonar.projectKey=mohamed-alaoui6_test
+          -Dsonar.projectKey=mohamed-alaoui6_test \
           -Dsonar.organization=mohamed-alaoui6 \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          
+
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
       with:
