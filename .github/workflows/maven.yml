@@ -36,10 +36,12 @@ jobs:
           
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.AWS_ECR_REPO_URI }}:${{ env.version }} -t ${{ secrets.AWS_ECR_REPO_URI }}:latest .
+        docker build -t my-app:${{ github.sha }} -t my-app:latest .
+    
     - name: Run Trivy Scan
       run: |
-        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${{ secrets.AWS_ECR_REPO_URI }}:${{ env.version }}
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image my-app:${{ github.sha }}
+
 
 
     - name: Set up AWS CLI
