@@ -40,7 +40,9 @@ jobs:
     
     - name: Run Trivy Scan
       run: |
-        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.45.0 image my-app:${{ github.sha }}
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+          -e TRIVY_DB_REPOSITORY="https://trivy-db.aquasec.com" \
+          aquasec/trivy:0.45.0 image my-app:${{ github.sha }}
 
 
     - name: Set up AWS CLI
