@@ -38,11 +38,8 @@ jobs:
       run: |
         docker build -t $GITHUB_SHA . 
     
-    - name: Download Trivy Database
-      run: |
-        docker run --rm \
-          -v /tmp/trivy-cache:/root/.cache/trivy \
-          aquasec/trivy:latest image --download-db-only
+    - name: Set up Trivy Cache
+      run: mkdir -p /tmp/trivy-cache
     
     - name: Run Trivy Scan
       run: |
@@ -50,6 +47,7 @@ jobs:
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v /tmp/trivy-cache:/root/.cache/trivy \
           aquasec/trivy:latest image $GITHUB_SHA
+
 
 
 
