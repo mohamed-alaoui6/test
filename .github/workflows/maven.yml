@@ -38,12 +38,12 @@ jobs:
       run: |
         docker build -t $GITHUB_SHA . 
     
-    - name: Run Trivy Scan
+    - name: Run Trivy Scan with Retry
       run: |
-         docker run --rm \
-           -v /var/run/docker.sock:/var/run/docker.sock \
-           -v ~/.cache/trivy:/root/.cache/trivy \
-           aquasec/trivy:latest image --scanners vuln $GITHUB_SHA
+        for i in {1..3}; do
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/trivy-cache:/root/.cache/trivy aquasec/trivy:latest image $GITHUB_SHA && break || sleep 60
+        done
+
 
 
 
