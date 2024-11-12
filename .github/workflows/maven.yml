@@ -24,14 +24,15 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
-
     - name: Run SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
+      with:
+        sonar-project-key: mohamed-alaoui6_test
+        sonar-organization: mohamed-alaoui6
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for PR metadata
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_PROJECT_KEY: mohamed-alaoui6_test
-        SONAR_ORG: mohamed-alaoui6
+
 
 
     - name: Set up AWS CLI
