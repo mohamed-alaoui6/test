@@ -38,15 +38,19 @@ jobs:
       run: |
         docker build -t $GITHUB_SHA . 
     
-    - name: Set up Trivy cache
-      run: mkdir -p ~/.cache/trivy
+    - name: Download Trivy Database
+      run: |
+        docker run --rm \
+          -v /tmp/trivy-cache:/root/.cache/trivy \
+          aquasec/trivy:latest image --download-db-only
     
     - name: Run Trivy Scan
       run: |
         docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
-          -v ~/.cache/trivy:/root/.cache/trivy \
+          -v /tmp/trivy-cache:/root/.cache/trivy \
           aquasec/trivy:latest image $GITHUB_SHA
+
 
 
     - name: Set up AWS CLI
