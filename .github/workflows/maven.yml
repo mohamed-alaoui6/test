@@ -38,15 +38,13 @@ jobs:
       run: |
         docker build -t $GITHUB_SHA . 
     
-    - name: Set up Trivy Cache
-      run: mkdir -p /tmp/trivy-cache
-    
     - name: Run Trivy Scan
       run: |
-        docker run --rm \
-          -v /var/run/docker.sock:/var/run/docker.sock \
-          -v /tmp/trivy-cache:/root/.cache/trivy \
-          aquasec/trivy:latest image $GITHUB_SHA
+         docker run --rm \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v ~/.cache/trivy:/root/.cache/trivy \
+           aquasec/trivy:latest image --scanners vuln $GITHUB_SHA
+
 
 
 
