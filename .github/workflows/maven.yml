@@ -28,8 +28,11 @@ jobs:
     - name: Run SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for PR metadata
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for PR metadata
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_PROJECT_KEY: mohamed-alaoui6_test
+        SONAR_ORG: mohamed-alaoui6
+
 
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
