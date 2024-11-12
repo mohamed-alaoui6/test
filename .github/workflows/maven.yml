@@ -33,6 +33,13 @@ jobs:
           -Dsonar.organization=mohamed-alaoui6 \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          
+    - name: Build Docker image
+      run: |
+        docker build -t ${{ secrets.AWS_ECR_REPO_URI }}:${{ env.version }} -t ${{ secrets.AWS_ECR_REPO_URI }}:latest .
+    - name: Run Trivy Scan
+      run: |
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${{ secrets.AWS_ECR_REPO_URI }}:${{ env.version }}
 
 
     - name: Set up AWS CLI
@@ -65,9 +72,6 @@ jobs:
         # Export the new version tag
         echo "version=v$NEW_VERSION" >> $GITHUB_ENV
 
-    - name: Build Docker image
-      run: |
-        docker build -t ${{ secrets.AWS_ECR_REPO_URI }}:${{ env.version }} -t ${{ secrets.AWS_ECR_REPO_URI }}:latest .
 
     - name: Push Docker image to AWS ECR
       run: |
