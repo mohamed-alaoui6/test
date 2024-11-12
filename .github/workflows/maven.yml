@@ -36,13 +36,11 @@ jobs:
           
     - name: Build Docker image
       run: |
-        docker build -t my-app:${{ github.sha }} -t my-app:latest .
+        docker build -t $GITHUB_SHA . 
     
     - name: Run Trivy Scan
       run: |
-        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-          -e TRIVY_DB_REPOSITORY="https://trivy-db.aquasec.com" \
-          aquasec/trivy:0.45.0 image my-app:${{ github.sha }}
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image $GITHUB_SHA
 
 
     - name: Set up AWS CLI
